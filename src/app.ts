@@ -7,12 +7,13 @@ import rateLimiter from 'express-rate-limit';
 import helmet from 'helmet';
 import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
+import cookieParser from 'cookie-parser';
 
 //internal
 import { connectDB } from './db/connect';
-import { log } from './utils/logger';
-import { loggerMiddleware } from './middleware/logger.middleware';
+import { errorHandler, loggerMiddleware, routeNotFound } from './middleware/';
 import { routes } from './routes';
+import { swaggerDocs, log } from './utils';
 
 //configs
 const PORT = config.get<string>('port');
@@ -39,12 +40,18 @@ app.use(helmet());
 app.use(cors(corsOptions));
 
 app.use(mongoSanitize());
+app.use(cookieParser(process.env.JWT_SECRET));
 
 //middlewares
 routes(app, express);
+swaggerDocs(app, PORT);
+
 app.use(loggerMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(routeNotFound);
+app.use(errorHandler);
 
 //server start
 const startServer = async (): Promise<void> => {
