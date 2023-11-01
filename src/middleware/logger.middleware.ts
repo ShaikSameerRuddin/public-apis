@@ -9,7 +9,7 @@ const stream = createWriteStream('app.log', { flags: 'a' });
 export const loggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const timestamp = dayjs().format('YYYY-MM-DD HH:mm:ss');
   const log = `${timestamp} - ${req.method} ${req.url} - ${req.ip}`;
-  console.log(log); // Log to console
+ 
 
    stream.write(log + '\n', (error) => {
     if (error) {
