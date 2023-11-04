@@ -9,7 +9,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 const authenticateUser = async (
-  req: Request,
+  req: Request | any,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
