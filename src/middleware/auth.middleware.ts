@@ -42,7 +42,6 @@ const authenticateUser = async (
     next();
   } catch (error) {
     next(error)
-    throw new AuthenticationError('Authentication Invalid');
   }
 };
 
