@@ -3,7 +3,6 @@ import express from 'express';
 import 'dotenv/config';
 import config from 'config';
 import bodyParser from 'body-parser';
-import rateLimiter from 'express-rate-limit';
 import helmet from 'helmet';
 import cors from 'cors';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -30,12 +29,6 @@ const corsOptions = {
 
 // Use the cors middleware with the specified options
 app.set('trust proxy', 1);
-app.use(
-  rateLimiter({
-    windowMs: 15 * 60 * 1000,
-    max: 60,
-  }),
-);
 app.use(helmet());
 app.use(cors(corsOptions));
 
