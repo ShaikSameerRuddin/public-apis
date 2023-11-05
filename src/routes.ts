@@ -1,6 +1,8 @@
 import { Express, Request, Response } from 'express';
 import {
   forgotPasswordUrl,
+  getAllUsersUrl,
+  getUserById,
   healthCheckUrl,
   loginUrl,
   logoutUrl,
@@ -16,8 +18,9 @@ import {
   register,
   resetPassword,
   verifyEmail,
-} from './controller/user.contoller';
-import { authenticateUser } from './middleware';
+} from './controller/auth.contoller';
+import { authenticateUser, authorizePermissions } from './middleware';
+import { getAllUsers, getSingleUser } from './controller/user.contoller';
 
 export const routes = (app: Express, express: any) => {
   const router = express.Router();
@@ -198,4 +201,86 @@ export const routes = (app: Express, express: any) => {
    *         description: Bad request, invalid email or missing information
    */
   app.post(forgotPasswordUrl, forgotPassword);
+  /**
+   * @openapi
+   * /api/v1/users:
+   *   get:
+   *     tags:
+   *      - Admin
+   *     summary: Get all users.
+   *     description: Retrieve a list of all users with the 'user' role.
+   *     responses:
+   *       200:
+   *         description: A list of users.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 users:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       _id:
+   *                         type: string
+   *                       name:
+   *                         type: string
+   *                       email:
+   *                         type: string
+   *
+   */
+  app.get(
+    getAllUsersUrl,
+    [authenticateUser, authorizePermissions('admin')],
+    getAllUsers,
+  );
+/**
+ * @openapi
+ * /api/v1/users/{id}:
+ *   get:
+ *     tags:
+ *       - Admin
+ *     summary: Get a single user by ID.
+ *     description: Retrieve a single user by their ID, excluding sensitive information such as the password.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the user.
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     role:
+ *                       type: string
+ *                     isVerified:
+ *                       type: boolean
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                     verified:
+ *                       type: string
+ *                       format: date-time
+ *                    
+ */
+  app.get(getUserById, [authenticateUser, authorizePermissions('admin')], getSingleUser);
 };
