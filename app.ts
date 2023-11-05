@@ -9,10 +9,10 @@ import mongoSanitize from 'express-mongo-sanitize';
 import cookieParser from 'cookie-parser';
 
 //internal
-import { connectDB } from './db/connect';
-import { errorHandler, loggerMiddleware, routeNotFound } from './middleware/';
-import { routes } from './routes';
-import { swaggerDocs, log } from './utils';
+import { connectDB } from './src/db/connect';
+import { errorHandler, loggerMiddleware, routeNotFound } from './src/middleware';
+import { routes } from './src/routes';
+import { swaggerDocs, log } from './src/utils';
 
 //configs
 const PORT = config.get<string>('port');
