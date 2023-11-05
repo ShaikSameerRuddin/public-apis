@@ -6,8 +6,8 @@
   "author": "Sameer Ruddin Shaik",
   "license": "MIT",
   "scripts": {
-    "start": "node src/app.ts",
-    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "node app.ts",
+    "dev": "ts-node-dev --respawn --transpile-only app.ts",
     "build": "tsc"
   },
   "devDependencies": {
