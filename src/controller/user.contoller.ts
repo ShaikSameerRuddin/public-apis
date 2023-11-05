@@ -25,7 +25,7 @@ const getSingleUser = async (
   req: CustomRequest | any,
   res: Response ,
 ): Promise<void> => {
-  const user = await User.findOne({ _id: req.params.id }).select('-password');
+  const user = await User.findOne({ _id: req.params.id }).select('-password') as any;
   const plainUser = user.toObject(); 
   const {
     passwordToken,
