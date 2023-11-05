@@ -1,3 +1,4 @@
+import { checkPermissions } from './checkPermissions';
 import { hashString } from './createHash';
 import {
   attachCookiesToResponse,
@@ -16,4 +17,5 @@ export {
   attachCookiesToResponse,
   createTokenUser,
   hashString,
+  checkPermissions
 };

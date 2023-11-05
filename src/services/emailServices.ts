@@ -16,7 +16,7 @@ export const sendEmail = async ({ to, subject, html }: EmailOptions): Promise<Se
     const transporter: Transporter<SMTPTransport.SentMessageInfo> = nodemailer.createTransport(nodemailerConfig);
 
     return await transporter.sendMail({
-      from: '"Sameer Ruddin" <sameerruddinshaik@gmail.com>',
+      from: '"Public Apis" <publics.apis@gmail.com>',
       to : Array.isArray(to) ? to.join(', ') : to,
       subject,
       html,

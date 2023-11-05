@@ -1,9 +1,10 @@
 export const nodemailerConfig = {
-    host: 'smtp.ethereal.email',
+    host: 'smtp.gmail.com',
     port: 587,
+    secure:false,
     auth: {
-      user: 'laila.torphy59@ethereal.email',
-      pass: 'E6JxHG24R939f6ehbj',
+      user: 'publics.apis@gmail.com',
+      pass: 'apqx nfxz ylsd agvy',
     },
   };
   

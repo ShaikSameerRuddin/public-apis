@@ -13,6 +13,7 @@ export interface IUser extends Document {
   passwordToken?: string | null;
   passwordTokenExpirationDate?: Date | undefined | null | any;
   comparePassword: (candidatePassword: string) => Promise<boolean>;
+  userId?:string
 }
 
 const UserSchema: Schema<IUser> = new Schema(
