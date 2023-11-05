@@ -3,8 +3,8 @@ export const nodemailerConfig = {
     port: 587,
     secure:false,
     auth: {
-      user: 'publics.apis@gmail.com',
-      pass: 'apqx nfxz ylsd agvy',
+      user:process.env.SMPT_USER ,
+      pass:process.env.SMPT_PASS,
     },
   };
   
